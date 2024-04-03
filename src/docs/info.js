@@ -2,7 +2,7 @@ export const info = {
     definition: {
         openapi: '3.0.0',   
         info: {
-            title: 'API Ecommerce',
+            title: 'Ecommerce Gragera',
             version: '1.0.0',
             description: 'Ecommerce Gragera'
         },
