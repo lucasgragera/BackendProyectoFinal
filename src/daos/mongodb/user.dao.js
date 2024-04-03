@@ -96,4 +96,44 @@ export default class UserDao extends MongoDao{
             throw new Error(error)
         }
     }
+    async updateLastConnection(userId) {
+      try {
+        const currentDate = new Date();
+        await this.model.findByIdAndUpdate(userId, { lastConnection: currentDate });
+      } catch (error) {
+        throw new Error(error.message);
+      };
+    };
+  
+    async deleteInactiveUsers() {
+      try {
+        const inactiveUsers = await this.model.find({ lastConnection: { $lt: new Date(Date.now() - 90 * 24 * 60 * 60 * 1000) } });
+        await this.model.deleteMany({ _id: { $in: inactiveUsers.map(user => user._id) } });
+        return inactiveUsers;
+  
+      } catch (error) {
+        throw new Error(error.message);
+      };
+    };
+  
+    updateImg = async (userId, imagePath) => {
+      try {
+        const updatedUser = await this.model.findOneAndUpdate(
+          { _id: userId },
+          { $set: { image: imagePath } },
+          { new: true }
+        );
+        if (userId.role != "admin" || userId.role != "premium") {
+          const updatedUser = await this.model.findOneAndUpdate(
+            { _id: userId },
+            { $set: { role: 'premium' } },
+            { new: true }
+          );
+          return updatedUser;
+        }
+        return updatedUser;
+      } catch (error) {
+        throw new Error(error.message);
+      }
+    };
 }

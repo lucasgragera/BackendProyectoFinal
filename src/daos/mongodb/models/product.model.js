@@ -29,6 +29,4 @@ const collectionSchema = new Schema({
 
 collectionSchema.plugin(mongoosePaginate);
 
-// export const ProductModel = model(collectionName, collectionSchema);
-//export const ProductModel = model("products", collectionSchema);
 export const ProductModel = model("products", productsSchema);

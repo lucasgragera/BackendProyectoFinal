@@ -1,60 +1,141 @@
+# components:
+#   parameters:
+#     schemas:
+#       login: 
+#         type: object
+#         required:   
+#           - email
+#           - password
+#         properties:  
+#           email:
+#             type: string
+#             description: Email del usuario 
+#           password:
+#             type: string
+#             description: Password del usuario
+#         example:
+#           email: juan@mail.com
+#           password: abc123def456
+#       Products:
+#         type: object
+#         properties:
+#           List:
+#             type: array
+#             items:
+#               $ref: '#/components/schema/Products/Details'
+#           Details:
+#             type: object
+#             properties:
+#               title: string
+#           UpdateDetails:
+#             type: object
+#             properties:
+#               title: string
+#           Delete:
+#             type: object
+#             properties:
+#               id: integer
+
+#       Cart:
+#         type: object
+#         properties:
+#           Content:
+#             type: array
+#             items:
+#               $ref: '#/components/schema/Products/Details'
+#           AddProduct:
+#             type: object
+#             properties:
+#               id: integer
+#           UpdateProductQuantity:
+#             type: object
+#             properties:
+#               stock: integer
+#           DeleteProduct:
+#             type: object
+#             properties:
+#               id: integer
+#   securitySchemes:
+#     BearerAuth: 
+#       type: http
+#       scheme: bearer
+#       bearerFormat: JWT
 components:
   parameters:
     schemas:
-      login: 
+      NewUser:
         type: object
-        required:   
+        required:
+          - first_name
+          - last_name
           - email
           - password
-        properties:  
+        properties:
+          first_name:
+            type: string
+            description: Nombre del Usurario
+          last_name:
+            type: string
+            description: Apellido del usuario
           email:
             type: string
-            description: Email del usuario 
+            description: Mail del usuario
           password:
             type: string
-            description: Password del usuario
+            description: Contraseña del usuario
         example:
-          email: juan@mail.com
-          password: abc123def456
-      Products:
+          first_name: Marcos
+          last_name: Tavares
+          email: marcostavares@gmail.com
+          password: "1234"
+          age: 44
+      LoginUser:
         type: object
+        required: 
+          - first_name
+          - last_name
+          - email
+          - password 
         properties:
-          List:
-            type: array
-            items:
-              $ref: '#/components/schema/Products/Details'
-          Details:
-            type: object
-            properties:
-              title: string
-          UpdateDetails:
-            type: object
-            properties:
-              title: string
-          Delete:
-            type: object
-            properties:
-              id: integer
-
-      Cart:
+          email:
+            type: string
+            description: Mail del usuario
+          password:
+            type: string
+            description: Contraseña del usuario
+        example:
+          email: marcostavares@gmail.com
+          password: "1234"
+      BodyProduct:
         type: object
+        required:
+          - product_name
+          - product_description
+          - product_price
+          - product_stock
+          - product_cathegory
         properties:
-          Content:
-            type: array
-            items:
-              $ref: '#/components/schema/Products/Details'
-          AddProduct:
-            type: object
-            properties:
-              id: integer
-          UpdateProductQuantity:
-            type: object
-            properties:
-              stock: integer
-          DeleteProduct:
-            type: object
-            properties:
-              id: integer
+          product_name:
+            type: string
+            description: Nombre del producto
+          product_description:
+            type: string
+            description: Descripción del producto
+          product_price:
+            type: number
+            description: Precio del producto
+          product_stock:
+            type: number
+            description: Cantidad en stock del producto
+          product_cathegory:
+            tyoe: string
+            description: Categoría del producto
+        example:
+          product_name: Lenovo K56
+          product_description: Portátil modelo2 023
+          product_price: 200000
+          product_stock: 5
+          product_cathegory: Una categoria
   securitySchemes:
     BearerAuth: 
       type: http

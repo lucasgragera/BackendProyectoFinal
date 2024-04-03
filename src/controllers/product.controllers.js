@@ -28,7 +28,8 @@ export const getProdById = async (req, res, next) => {
 
 export const createProd = async (req, res, next) => {
   try {
-    const newItem = await this.service.createProd(req.body);
+    const { email } = req.user;
+    const newItem = await this.service.createProd(req.body, email);
     if (!newItem)
       createResponse(res, 404, {
         method: "create",
@@ -132,10 +133,16 @@ export const update = async (req, res, next) => {
 
 export const remove = async (req, res, next) => {
   try {
+    const { email } = req.user;
     const { id } = req.params;
+    // let item = await this.service.getById(id)
     const prodDel = await service.remove(id);
-    if (!prodDel) res.status(404).json({ msg: "Error delete product!" });
-    else res.status(200).json({ msg: `Product id: ${id} deleted` });
+    if (!prodDel) {
+      res.status(404).json({ msg: "Error delete product!" })
+    }
+    else {
+      res.status(200).json({ msg: `Product id: ${id} deleted` })
+    }
   } catch (error) {
     next(error.message);
   }

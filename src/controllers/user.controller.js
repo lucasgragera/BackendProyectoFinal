@@ -194,6 +194,7 @@ export const login = (req, res) => {
       else res.send({ status: "Logout ERROR", body: err });
     });
   };
+  
 
   export const privateRoute = async (req, res) => {
     const { first_name, last_name, email, role } = req.user;

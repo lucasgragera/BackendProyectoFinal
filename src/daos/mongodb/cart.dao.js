@@ -4,7 +4,7 @@ export default class CartDaoMongoDB {
   // async addProductToCart(cid, pid) {
   
 
-  async getAll() {
+  async getAllCarts() {
     try {
       const response = await CartModel.find({}).lean();
       return response;
@@ -13,7 +13,7 @@ export default class CartDaoMongoDB {
     }
   }
 
-  async getById(id) {
+  async getCartById(id) {
     try {
       const response = await CartModel.findById(id).populate('products');
       return response;
@@ -22,7 +22,7 @@ export default class CartDaoMongoDB {
     }
   }
 
-  async create(obj) {
+  async createCart(obj) {
     try {
       const response = await CartModel.create(obj);
       return response;
@@ -42,7 +42,7 @@ export default class CartDaoMongoDB {
     }
   }
 
-  async remove(id) {
+  async removeCart(id) {
     try {
       const response = await CartModel.findByIdAndDelete(id);
       return response;

@@ -4,25 +4,25 @@ const cartDao = new CartDaoMongoDB();
 const productDao = new ProductDaoMongoDB();
 
 
-export const getAll = async () => {
+export const getAllCarts = async () => {
   try {
-    return await cartDao.getAll();
+    return await cartDao.getAllCarts();
   } catch (error) {
     console.log(error);
   }
 };
 
-export const getById = async (id) => {
+export const getCartById = async (id) => {
   try {
-    const carro = await cartDao.getById(id);
-    if (!carro) return false;
-    else return carro;
+    const cart = await cartDao.getCartById(id);
+    if (!cart) return false;
+    else return cart;
   } catch (error) {
     console.log(error);
   }
 };
 
-export const create = async () => {
+export const createCart = async () => {
   try {
     const newCart = cartDao.create();
     if (!newCart) return false;
@@ -32,9 +32,9 @@ export const create = async () => {
   }
 };
 
-export const remove = async (id) => {
+export const removeCart = async (id) => {
   try {
-    const cartDel = await cartDao.remove(id);
+    const cartDel = await cartDao.removeCart(id);
     if (!cartDel) return false;
     else return cartDel;
   } catch (error) {
@@ -42,10 +42,10 @@ export const remove = async (id) => {
   }
 };
 
-export const addProduct = async (cid,id)=>{
+export const addProductToCart = async (cid,id)=>{
 // export const addProduct = async (cid,pid)=>{
     try {
-        const cart = await cartDao.getById(cid);
+        const cart = await cartDao.getCartById(cid);
         const product = id
         // const product = pid
         if(!cart || !product) return false;
@@ -60,7 +60,7 @@ export const addProduct = async (cid,id)=>{
 }
 export const removeProdToCart = async (cid, id) => {
   try {
-    const existCart = await getById(cid);
+    const existCart = await getCartById(cid);
     console.log("existCart-->", existCart);
     if (!existCart) return false;
 
@@ -76,7 +76,7 @@ export const removeProdToCart = async (cid, id) => {
 
 export const updateProdQuantityToCart = async (cid, id, quantity) => {
   try {
-    const existCart = await getById(cid);
+    const existCart = await getCartById(cid);
     console.log("existCart-->", existCart);
     if (!existCart) return false;
 

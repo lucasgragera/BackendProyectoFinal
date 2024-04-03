@@ -8,6 +8,7 @@ import { ProductModel } from "../daos/mongodb/models/product.model.js";
 const productManager = new ProductManager("../product.json");
 import { isAdmin, isUser } from '../middlewares/currentAuth.js';
 //const { isAdmin, isUser } = '../middlewares/currentAuth.js';
+import { verifyUser } from "../middlewares/verifyUser.js";
 import * as controller from "../controllers/product.controllers.js";
 import {logger} from "../daos/mongodb/product.dao.js";
 
@@ -24,19 +25,25 @@ router.get('/pruebaPaginate', async(req, res)=>{
     res.json(products)
 });
 
-router.get('/getQuery', getQuery)
+// router.get('/getQuery', getQuery)
 
-router.get("/", controller.getAll);
+// router.get("/", controller.getAll);
 
-router.get("/:id", controller.getById);
+// router.get("/:id", controller.getById);
 
-router.post("/", isAdmin, isUser, controller.create);
+// router.post("/", isAdmin, isUser, controller.create);
 
-router.put("/:id", isAdmin, isUser, controller.update);
+// router.put("/:id", isAdmin, isUser, controller.update);
 
-router.delete("/:id", isAdmin, isUser, controller.remove);
+// router.delete("/:id", isAdmin, isUser, controller.remove);
 
-router.get("/mockingproducts", UserController.getMockingProducts);
+// router.get("/mockingproducts", UserController.getMockingProducts);
+
+router.get('/', controller.getAll);
+router.get('/:id', controller.getById);
+router.post('/', verifyUser, controller.create);
+router.put('/:id', verifyUser, controller.update);
+router.delete('/:id', verifyUser, controller.remove);
 
 router.get('/loggerTest', (req, res) => {
     logger.info('Endpoint /loggerTest fue accedido');

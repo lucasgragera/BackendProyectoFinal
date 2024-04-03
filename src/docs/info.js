@@ -4,7 +4,7 @@ export const info = {
         info: {
             title: 'API Ecommerce',
             version: '1.0.0',
-            description: 'Tecnologías utilizadas: Node, Express, MongoDB'
+            description: 'Ecommerce Gragera'
         },
         servers: [  
             {

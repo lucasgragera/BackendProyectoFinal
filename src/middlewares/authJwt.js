@@ -1,5 +1,4 @@
 import jwt from "jsonwebtoken";
-const {verify} =pkg;
 import userDao from "../daos/mongodb/user.dao.js"
 import 'dotenv/config';
 
@@ -15,8 +14,9 @@ export const generateToken = (user) => {
     expiresIn: "20m",
   });
   return token;
+}
 
-  const checkAuth = async (req, res, next) => {
+  export const checkAuth = async (req, res, next) => {
     try {
       const authHeader = req.get("Authorization");
       if (!authHeader) return res.status(401).json({ msg: "Unauthorized" });
@@ -33,4 +33,3 @@ export const generateToken = (user) => {
       return res.status(401).json({ msg: "Unauthorized" });
     }
   }
-};

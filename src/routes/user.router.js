@@ -20,6 +20,14 @@ import {
   infoSession,
 } from "../controllers/user.controller.js";
 import { validateLogIn } from "../middlewares/middlewares.js";
+import { checkAuth } from "../middlewares/authJwt.js";
+
+router.post('/register', controller.register);
+router.post('/login', controller.login);
+router.get('/profile-cookie', checkAuth, controller.profile);
+router.get('/all', verifyToken, controller.getAll);
+router.delete('/delete', verifyToken, controller.remove);
+router.post('/profile-img', checkAuth,  controller.uploaderImg)
 
 router.post('/registerPassport', registerPassport);
 

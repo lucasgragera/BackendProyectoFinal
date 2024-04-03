@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { CartManager } from "../CartManager.js";
+import  {checkAuth}   from "../middlewares/authJwt.js";
 import ProductManager from "../daos/filesystem/product.dao.js"; 
 import * as controller from "../controllers/cart.controller.js";
 
@@ -155,10 +156,19 @@ router.delete('/:cid', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
-router.post("/:idCart/products/:idProd", controller.addProdToCart);
+// router.post("/:idCart/products/:idProd", controller.addProdToCart);
 
-router.delete("/:idCart/products/:idProd", controller.removeProdToCart);
+// router.delete("/:idCart/products/:idProd", controller.removeProdToCart);
 
-router.put("/:idCart/products/:idProd", controller.updateProdQuantityToCart);
+// router.put("/:idCart/products/:idProd", controller.updateProdQuantityToCart);
+
+router.get('/', checkAuth, controller.getAllCarts);
+
+router.get('/:id', checkAuth, controller.getCartById);
+router.post("/", checkAuth, controller.createCart);
+router.delete("/:id", checkAuth ,controller.removeCart);
+router.post("/:idCart/products/:idProd", checkAuth ,controller.addProdToCart);
+router.delete("/:idCart/products/:idProd",checkAuth, controller.removeProdToCart);
+router.delete("/clear/:idCart", checkAuth, controller.clearCart);
 
 export default router;
