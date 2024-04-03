@@ -8,7 +8,7 @@ export const info = {
         },
         servers: [  
             {
-                url: 'https://ecommerce-gragera.netlify.app/docs'
+                url: 'https://ecommerce-gragera.netlify.app'
             }
         ]
     },
