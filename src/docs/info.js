@@ -9,8 +9,6 @@ export const info = {
         servers: [  
             {
                 url: 'https://ecommerce-gragera.netlify.app'
-                //url: 'http://localhost:8080/api'
-
             }
         ]
     },
